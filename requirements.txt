@@ -12,3 +12,4 @@
 boto3
 awscli
 pillow
+Flask
