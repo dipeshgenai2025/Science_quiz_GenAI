@@ -22,23 +22,20 @@ import os
 # Import your AWSImgGen class
 from AWSImgGen import AWSImgGen
 
-# List of human organs for quiz
-ORGANS = [
-    "Heart", "Liver", "Lung", "Kidney", "Stomach", "Brain", "Pancreas", "Small Intestine", "Large Intestine", "Spleen"
-]
-
 class QuizUI:
     """
     QuizUI creates a simple quiz interface for human body organs using AWSImgGen to generate images.
     Handles UI creation, question generation, answer checking, and feedback.
     """
-    def __init__(self, root):
+    def __init__(self, root, quiz_file):
         """
         Initializes the QuizUI object, sets up the main window, variables, and starts the first question.
         Args:
             root (tk.Tk): The main Tkinter window.
         """
         self.root = root
+        # List of human organs for quiz
+        self.ORGANS = self.load_quiz_data(quiz_file)
         self.root.title("Human Organ Quiz")
         self.root.geometry("500x600")
         self.img_gen = AWSImgGen()
@@ -51,6 +48,11 @@ class QuizUI:
         # UI Elements
         self.create_widgets()
         self.next_question()
+
+    def load_quiz_data(self, filename):
+        with open(filename, "r", encoding="utf-8") as f:
+            # Remove empty lines and strip whitespace
+            return [line.strip() for line in f if line.strip()]
 
     def create_widgets(self):
         """
@@ -79,7 +81,7 @@ class QuizUI:
         self.next_button.grid(row=0, column=1, padx=10)
 
         # Add a status label for messages
-        self.status_label = tk.Label(self.root, text="", fg="blue", font=("Arial", 11))
+        self.status_label = tk.Label(self.root, text="", fg="blue", font=("Arial", 14))
         self.status_label.pack(pady=5)
 
     def next_question(self):
@@ -101,9 +103,9 @@ class QuizUI:
         while True:
             try:
                 # Randomly select an organ as the correct answer
-                self.correct_answer = random.choice(ORGANS)
+                self.correct_answer = random.choice(self.ORGANS)
                 # Generate 3 random wrong options
-                wrong_options = random.sample([o for o in ORGANS if o != self.correct_answer], 3)
+                wrong_options = random.sample([o for o in self.ORGANS if o != self.correct_answer], 3)
                 # Combine and shuffle options
                 self.options = wrong_options + [self.correct_answer]
                 random.shuffle(self.options)
@@ -204,8 +206,10 @@ class QuizUI:
             self.check_button.config(state="disabled")
 
 if __name__ == "__main__":
+
+    # List of human organs for quiz
     root = tk.Tk()
     # Create the QuizUI instance
-    app = QuizUI(root)
+    app = QuizUI(root, "QuizData_1.txt")
     # Start the Tkinter event loop
     root.mainloop()

@@ -1,0 +1,69 @@
+Frontal bone
+Parietal bone
+Occipital bone
+Temporal bone
+Sphenoid bone
+Ethmoid bone
+Face bone
+Vomer bone
+Zygoma bone
+Mandible
+Maxilla bone
+Palatine bone
+Lacrimal bone
+Nasal bone
+Inferior nasal conchae
+Vertebral column
+C1 to C7 Cervical vertebrae
+T1 to T12 Thoracic vertebrae
+L1 to L5 Lumbar vertebrae
+Sacrum
+Coccyx
+Ribcage
+1st to 12th True ribs
+13th to 18th False rib
+19th to 24th Floating ribs
+Sternum
+Manubrium
+Body of sternum
+Xiphoid process
+Upper limb
+Scapula
+Humerus
+Radius
+Ulna
+Carpals
+Scaphoid bone
+Lunate bone
+Triquetrum bone
+Pisiform bone
+Trapezium bone
+Trapezoid bone
+Capitate bone
+Hamate bone
+Carpal bones
+Metacarpals bones
+Phalanges bones
+Proximal phalanges bones
+Intermediate phalanges bones
+Distal phalanges bones
+Pelvis bones
+Ilium bones
+Ischium bones
+Pubis bones
+Sacrum bones
+Lower limb bones
+Femur bones
+Patella
+Tibia
+Fibula
+Tarsals
+Calcaneus
+Talus
+Cuboid bone
+Navicular bone
+Cuneiform bones
+Metatarsals bones
+Proximal phalanges bones
+Intermediate phalanges bones
+Distal phalanges bones

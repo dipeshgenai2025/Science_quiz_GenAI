@@ -96,10 +96,10 @@ class AWSImgGen:
         image_data = base64.b64decode(base64_image_data)
 
         # Find a unique filename
-        i = 1
-        while os.path.exists(os.path.join(self.output_dir, f"aws_image_{i}.png")):
-            i += 1
-        image_path = os.path.join(self.output_dir, f"aws_image_{i}.png")
+        count = 1
+        while os.path.exists(os.path.join(self.output_dir, f"aws_image_{count}.png")):
+            count += 1
+        image_path = os.path.join(self.output_dir, f"aws_image_{count}.png")
         # Save image to file
         with open(image_path, "wb") as file:
             file.write(image_data)
