@@ -18,6 +18,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 import random
 import os
+import sys
 
 # Import your AWSImgGen class
 from AWSImgGen import AWSImgGen
@@ -37,12 +38,15 @@ class QuizUI:
         # List of human organs for quiz
         self.ORGANS = self.load_quiz_data(quiz_file)
         self.root.title("Human Organ Quiz")
-        self.root.geometry("500x600")
+        # --- CHANGE: Increased the window size
+        self.root.geometry("700x850")
+        # --- CHANGE: Disabled the window resizing and the maximize button
+        self.root.resizable(False, False)
         self.img_gen = AWSImgGen()
         self.correct_answer = None
         self.options = []
         self.selected_option = tk.StringVar()
-        self.selected_option.trace_add("write", self.on_option_selected)  # Add this line
+        self.selected_option.trace_add("write", self.on_option_selected)
         self.image_label = None
 
         # UI Elements
@@ -50,6 +54,11 @@ class QuizUI:
         self.next_question()
 
     def load_quiz_data(self, filename):
+        """
+        Function to open the quiz data file and populate the list data structure.
+        Args:
+            filename (str): The path to the quiz data file.
+        """
         with open(filename, "r", encoding="utf-8") as f:
             # Remove empty lines and strip whitespace
             return [line.strip() for line in f if line.strip()]
@@ -60,29 +69,38 @@ class QuizUI:
         radio buttons for options, control buttons, and status label.
         """
         # Image display section
-        self.image_label = tk.Label(self.root, text="Loading image...", width=400, height=300)
+        # --- CHANGE: Increased the size of the image placeholder
+        self.image_label = tk.Label(self.root, text="Loading image...", width=600, height=450, font=("Arial", 20))
         self.image_label.pack(pady=20)
 
         # Radio buttons for options
         self.radio_buttons = []
+        # --- CHANGE: Created a new style with a larger font for radio buttons
+        style = ttk.Style()
+        style.configure('T.TRadiobutton', font=('Helvetica', 16))
         for i in range(4):
-            rb = ttk.Radiobutton(self.root, text="", variable=self.selected_option, value="", style='TRadiobutton')
-            rb.pack(anchor='w', padx=40, pady=5)
+            # --- CHANGE: Applied the new style
+            rb = ttk.Radiobutton(self.root, text="", variable=self.selected_option, value="", style='T.TRadiobutton')
+            rb.pack(anchor='w', padx=40, pady=10)
             self.radio_buttons.append(rb)
 
         # Check and Next buttons
         button_frame = tk.Frame(self.root)
         button_frame.pack(pady=20)
 
-        self.check_button = tk.Button(button_frame, text="Check", command=self.check_answer, width=10)
+        # --- CHANGE: Increased button width and font size
+        self.check_button = tk.Button(button_frame, text="Check", command=self.check_answer, width=15, font=("Arial", 16))
         self.check_button.grid(row=0, column=0, padx=10)
 
-        self.next_button = tk.Button(button_frame, text="Next", command=self.next_question, width=10)
+        # --- CHANGE: Increased button width and font size
+        self.next_button = tk.Button(button_frame, text="Next", command=self.next_question, width=15, font=("Arial", 16))
         self.next_button.grid(row=0, column=1, padx=10)
 
         # Add a status label for messages
-        self.status_label = tk.Label(self.root, text="", fg="blue", font=("Arial", 14))
-        self.status_label.pack(pady=5)
+        # --- CHANGE: Increased the font size
+        # --- CHANGE: Increased the font size and repositioned it to be above the buttons
+        self.status_label = tk.Label(self.root, text="", fg="blue", font=("Arial", 18))
+        self.status_label.pack(pady=20)
 
     def next_question(self):
         """
@@ -142,7 +160,8 @@ class QuizUI:
         """
         img = Image.open(image_path)
         # Use LANCZOS instead of ANTIALIAS
-        img = img.resize((400, 300), Image.Resampling.LANCZOS)
+        # --- CHANGE: Resized the image to fit the larger window
+        img = img.resize((600, 450), Image.Resampling.LANCZOS)
         photo = ImageTk.PhotoImage(img)
         self.image_label.configure(image=photo, text="")
         self.image_label.image = photo  # Keep a reference
@@ -185,10 +204,12 @@ class QuizUI:
         popup.grab_set()
         popup.resizable(False, False)
 
-        label = tk.Label(popup, text=message, font=("Arial", 12), padx=20, pady=20)
+        # --- CHANGE: Increased the font size of the popup message label
+        label = tk.Label(popup, text=message, font=("Arial", 16), padx=20, pady=20)
         label.pack()
 
-        ok_button = tk.Button(popup, text="OK", width=10, command=popup.destroy)
+        # --- CHANGE: Increased the button width and font size
+        ok_button = tk.Button(popup, text="OK", width=15, font=("Arial", 14), command=popup.destroy)
         ok_button.pack(pady=(0, 10))
 
         # Make sure the popup is on top
@@ -206,10 +227,15 @@ class QuizUI:
             self.check_button.config(state="disabled")
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        quiz_file = sys.argv[1]
+    else:
+        # Fallback to the default hard-coded value if no argument is provided
+        quiz_file = "QuizData_1.txt"
 
     # List of human organs for quiz
     root = tk.Tk()
     # Create the QuizUI instance
-    app = QuizUI(root, "QuizData_1.txt")
+    app = QuizUI(root, quiz_file)
     # Start the Tkinter event loop
     root.mainloop()
