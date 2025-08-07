@@ -52,4 +52,3 @@ Science_quiz_GenAI/
 ## 📜 License
 
 This project is open-source and available under the MIT License.
-```
