@@ -1,0 +1,14 @@
+###############################################################################
+# AWS Titan Image Generator Wrapper
+# 
+# Desc: The requirment file contains the necessary dependencies for setting
+#       up the environment
+# 
+# Author: Dipesh Karmakar
+# Date: 07/08/2025
+# License: MIT License
+###############################################################################
+
+boto3
+awscli
+pillow
