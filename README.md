@@ -1,46 +1,55 @@
-Project Setup Guide
-This guide will walk you through the necessary steps to set up and run the Science Quiz GenAI application.
+# 🧪 Science Quiz GenAI
 
-Prerequisites
-You will need to have the following software installed:
+A GenAI-powered science quiz app that uses AI-generated images and dynamic content to make learning fun and interactive.
 
-VS Code: A powerful source code editor.
+## 📦 Prerequisites
 
-Anaconda: A distribution of Python and R for scientific computing.
+- **Visual Studio Code (VS Code)**: A free and powerful code editor  
+- **Anaconda**: A robust platform for Python and R, essential for managing environments and dependencies
 
-Step-by-Step Installation
-Install VS Code and Anaconda
-If you haven't already, download and install both VS Code and Anaconda from their official websites.
+## ⚙️ Setup Instructions
 
-Open a Terminal in VS Code
-Open VS Code, then navigate to the terminal by going to Terminal > New Terminal in the menu. This will open a terminal directly within your project workspace.
+1. **Create Conda Environment**  
+   Open your terminal in VS Code and run:  
+   ```bash
+   conda create -p quiz_env python==3.10 -y
 
-Create a Conda Environment
-Create a dedicated virtual environment for the project to manage its dependencies. This ensures that the project's libraries do not interfere with other Python projects.
+2. **Activate Environment**  
+   ```bash
+   conda activate ./quiz_env
+   ```
 
-conda create -p quiz_env python==3.10 -y
+3. **Install Git & Clone Repository**  
+   ```bash
+   conda install git
+   git clone https://github.com/dipeshgenai2025/Science_quiz_GenAI.git
+   ```
 
-Activate the Environment
-Activate the newly created environment. All subsequent commands will be executed within this isolated environment.
+4. **Install Dependencies**  
+   ```bash
+   cd Science_quiz_GenAI
+   pip install -r requirements.txt
+   ```
 
-conda activate ./quiz_env
+5. **Configure AWS IAM User**  
+   Set up an IAM user in your AWS account with permissions for image generation model.
 
-Install Git and Clone the Repository
-First, install Git within your environment, then clone the project repository from GitHub.
+6. **Run the Application**  
+   ```bash
+   python QuizMain.py QuizData_1.txt
+   ```
 
-conda install git
-git clone https://github.com/dipeshgenai2025/Science_quiz_GenAI.git
+## 📁 Project Structure
 
-Install Project Dependencies
-Navigate into the cloned repository's directory and install all the required Python libraries using the requirements.txt file.
+```
+Science_quiz_GenAI/
+├── QuizMain.py
+├── QuizData_1.txt
+├── requirements.txt
+└── ...
+```
 
-cd Science_quiz_GenAI
-pip install -r requirements.txt
+## 📜 License
 
-Create an IAM User in AWS
-You will need to set up an IAM user in your Amazon Web Services (AWS) account to grant the application permissions to use the image generation service.
-
-Run the Application
-Once all dependencies are installed and your AWS user is configured, you can run the quiz application with the following command, passing QuizData_1.txt as the quiz file.
-
-python QuizMain.py QuizData_1.txt
+This project is open-source and available under the MIT License.
+```
