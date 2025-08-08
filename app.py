@@ -1,3 +1,14 @@
+###############################################################################
+# Human Organ Quiz UI
+#
+# Desc: A simple Flask application that serves the quiz about human organs.
+#
+# Author: Dipesh Karmakar
+# Date: 07/08/2025
+# License: MIT License
+###############################################################################
+
+# Import necessary libraries
 import os
 import random
 import json
@@ -105,4 +116,5 @@ def serve_static(filename):
     return send_from_directory('static', filename)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0', port=5000)

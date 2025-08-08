@@ -39,6 +39,21 @@ A GenAI-powered science quiz app that uses AI-generated images and dynamic conte
    python QuizMain.py QuizData_1.txt
    ```
 
+7. **Website deployment**
+   All the above steps needs to be executed along with,
+   ```bash
+   $ aws configure
+   AWS Access Key ID [None]: XXXXXXXXXXXXXXXXXXXX
+   AWS Secret Access Key [None]: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   Default region name [None]: us-east-1
+   Default output format [None]: json
+   ```
+   Start the Flask server with '&'
+   ```bash
+   Python3 app.py &
+   ```
+   Ending the command with '&' will keep the server running even with ssh terminal gets closed
+
 ## 📁 Project Structure
 
 ```
