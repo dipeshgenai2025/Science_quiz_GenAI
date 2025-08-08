@@ -39,7 +39,8 @@ A GenAI-powered science quiz app that uses AI-generated images and dynamic conte
    python QuizMain.py QuizData_1.txt
    ```
 
-7. **Website deployment**
+## ⚙️ Website deployment in AWS
+
    All the above steps needs to be executed along with,
    ```bash
    $ aws configure
@@ -48,6 +49,16 @@ A GenAI-powered science quiz app that uses AI-generated images and dynamic conte
    Default region name [None]: us-east-1
    Default output format [None]: json
    ```
+
+   - **AWS EC2 Deployment**:
+     - Launched an EC2 instance (likely Ubuntu).
+     - Installed necessary packages: Python, pip, Git
+     - Cloned the GitHub repo onto the EC2 instance.
+     - Set up a virtual environment and installed dependencies (`requirements.txt`).
+     - Ran the app using Flask’s built-in server.
+   - **Security & Access**: Configured inbound rules in the EC2 security group to allow HTTP/HTTPS traffic.
+   - **Domain & DNS (if applicable)**: Linked a custom domain via Route 53 or updated DNS records.
+   
    Start the Flask server with '&'
    ```bash
    Python3 app.py &
