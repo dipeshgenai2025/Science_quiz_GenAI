@@ -39,7 +39,7 @@ A GenAI-powered science quiz app that uses AI-generated images and dynamic conte
    python QuizMain.py QuizData_1.txt
    ```
 
-## ⚙️ Website deployment in AWS
+## ⚙️ Website deployment in AWS (Manual mode)
 
    All the above steps needs to be executed along with,
    ```bash
@@ -64,6 +64,28 @@ A GenAI-powered science quiz app that uses AI-generated images and dynamic conte
    Python3 app.py QuizData_1.txt &
    ```
    Ending the command with '&' will keep the server running even with ssh terminal gets closed
+
+## ⚙️ Website deployment in AWS (Added Linux service daemon)
+   Added quiz.service to be added to /etc/systemd/system/ directory
+   Also, run following commands to add the web service in Linux system daemon list and start the web service
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable quiz.service
+   sudo systemctl restart quiz.service
+   ```
+   Few more help commands
+   ```bash
+   sudo systemctl start quiz.service
+   sudo systemctl status quiz.service
+   sudo apt install net-tools
+   sudo netstat -tulnp | grep 5000
+   sudo journalctl -u quiz.service
+   sudo journalctl --vacuum-time=1s
+   ```
+   Finally run the web site using the public IP address exposed by Amazon EC2
+   ```bash
+   http://34.239.48.140:5000/
+   ```
 
 ## 📁 Project Structure
 
