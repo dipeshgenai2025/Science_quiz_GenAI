@@ -61,7 +61,7 @@ A GenAI-powered science quiz app that uses AI-generated images and dynamic conte
    
    Start the Flask server with '&'
    ```bash
-   Python3 app.py &
+   Python3 app.py QuizData_1.txt &
    ```
    Ending the command with '&' will keep the server running even with ssh terminal gets closed
 
