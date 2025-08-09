@@ -1,10 +1,9 @@
 ###############################################################################
-# Structures Of Wonders Quiz UI
+# Human Organ Quiz UI
 #
-# Desc: This module defines the StructuresOfWondersQuiz class, which
-# encapsulates a Flask-based web application for a structures of the wonders
-# quiz. It handles quiz logic, image generation from prompts, and serves the
-# web interface.
+# Desc: This module defines the HumanOrganQuiz class, which encapsulates a
+# Flask-based web application for a human organ quiz. It handles quiz logic,
+# image generation from prompts, and serves the web interface.
 #
 # Author: Dipesh Karmakar
 # Date: 07/08/2025
@@ -23,18 +22,18 @@ from flask import Flask, request, jsonify, session, send_from_directory
 # NOTE: The AWSImgGen class is assumed to be defined in a separate file.
 from AWSImgGen import AWSImgGen
 
-class StructuresOfWondersQuiz:
+class HumanOrganQuiz:
     """
-    A class to manage the Structures of wonders quiz Flask application.
+    A class to manage the Human Organ Quiz Flask application.
     This class handles the initialization, routing, and core logic of the quiz.
     """
 
     def __init__(self, quiz_data_file="QuizData_1.txt"):
         """
-        Initializes the StructuresOfWondersQuiz application.
+        Initializes the HumanOrganQuiz application.
 
         Args:
-            quiz_data_file (str): The name of the text file containing the list of structures of wonders.
+            quiz_data_file (str): The name of the text file containing the list of organs.
         """
         # Initialize the Flask application
         self.app = Flask(__name__)
@@ -43,8 +42,8 @@ class StructuresOfWondersQuiz:
         # Create an instance of the AWS Image Generation class
         self.img_gen = AWSImgGen()
 
-        # Load the list of structures of wonders from a file
-        self.structures = self._load_quiz_data(quiz_data_file)
+        # Load the list of human organs from a file
+        self.organs = self._load_quiz_data(quiz_data_file)
         
         # Ensure the static directory exists for serving images
         if not os.path.exists('static'):
@@ -55,22 +54,22 @@ class StructuresOfWondersQuiz:
 
     def _load_quiz_data(self, file_path):
         """
-        Loads the list of structures of wonders from the specified text file.
+        Loads the list of organs from the specified text file.
         If the file is not found, it defaults to a pre-defined list.
 
         Args:
             file_path (str): The path to the file containing the quiz data.
 
         Returns:
-            list: A list of structure names.
+            list: A list of organ names.
         """
         try:
             with open(file_path, "r", encoding="utf-8") as f:
-                structures = [line.strip() for line in f if line.strip()]
-                return structures if structures else ["Colosseum", "Taj Mahal", "Machu Picchu", "Great Wall of China", "Eiffel Tower"]
+                organs = [line.strip() for line in f if line.strip()]
+                return organs if organs else ["Heart", "Lungs", "Brain", "Kidneys", "Liver"]
         except FileNotFoundError:
-            print(f"{file_path} not found. Using default structures list.")
-            return ["Colosseum", "Taj Mahal", "Machu Picchu", "Great Wall of China", "Eiffel Tower"]
+            print(f"{file_path} not found. Using default organ list.")
+            return ["Heart", "Lungs", "Brain", "Kidneys", "Liver"]
 
     def _register_routes(self):
         """
@@ -86,13 +85,13 @@ class StructuresOfWondersQuiz:
         Generates a new quiz question with a correct answer and three incorrect options.
 
         Returns:
-            dict: A dictionary containing the correct structure and a shuffled list of options.
+            dict: A dictionary containing the correct organ and a shuffled list of options.
         """
-        # Select a correct answer randomly from the list of structures
-        correct_answer = random.choice(self.structures)
+        # Select a correct answer randomly from the list of organs
+        correct_answer = random.choice(self.organs)
         
-        # Select three other random structures as wrong options
-        wrong_options = random.sample([o for o in self.structures if o != correct_answer], 3)
+        # Select three other random organs as wrong options
+        wrong_options = random.sample([o for o in self.organs if o != correct_answer], 3)
         
         # Combine and shuffle the options
         options = wrong_options + [correct_answer]
@@ -102,7 +101,7 @@ class StructuresOfWondersQuiz:
         session['correct_answer'] = correct_answer
         
         return {
-            'structure': correct_answer,
+            'organ': correct_answer,
             'options': options
         }
 
@@ -120,7 +119,7 @@ class StructuresOfWondersQuiz:
         """
         Handles the '/get_question' GET request. It generates a new quiz question,
         uses an image generation model to create an illustration of the correct
-        structure, and returns the quiz options and image URL as a JSON response.
+        organ, and returns the quiz options and image URL as a JSON response.
 
         Returns:
             flask.Response: A JSON response with the quiz data or an error message.
@@ -136,9 +135,9 @@ class StructuresOfWondersQuiz:
                     os.remove(old_image_path)
             
             # Generate a prompt for the image generation model
-            prompt = f"A beautiful real life picture of the {question_data['structure'].lower()}. " \
+            prompt = f"A clear medical illustration of the human {question_data['organ'].lower()}. " \
                       "Do not include any text or labels. " \
-                      "Image should be clear."
+                      "Do not include scletal or bone structures if the organ or body part is external body part."
 
             print(f"Generated prompt: {prompt}")
 
@@ -225,7 +224,7 @@ class StructuresOfWondersQuiz:
 # Entry point of the application
 # Initialize the quiz app outside the main block.
 # Use a hard-coded default value for the quiz data file.
-quiz_app = StructuresOfWondersQuiz("ArchitecturesData.txt")
+quiz_app = HumanOrganQuiz("QuizData_1.txt")
 app = quiz_app.app
 
 # Entry point of the application for development only
@@ -234,6 +233,6 @@ if __name__ == '__main__':
         quiz_file = sys.argv[1]
     else:
         # Fallback to the default hard-coded value if no argument is provided
-        quiz_file = "ArchitecturesData.txt"
-    quiz_app = StructuresOfWondersQuiz(quiz_file)
+        quiz_file = "QuizData_1.txt"
+    quiz_app = HumanOrganQuiz(quiz_file)
     quiz_app.run()

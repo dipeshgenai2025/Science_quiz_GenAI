@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Structures of the wonders quiz by @dipesh-karmakar</title>
+    <title>Human Organ Quiz by @dipesh-karmakar</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -12,7 +12,7 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
     <div class="bg-white rounded-lg shadow-2xl p-8 max-w-2xl w-full">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Structures of the wonders quiz</h1>
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Human Organ Quiz</h1>
 
         <div id="loading" class="text-center my-8 text-gray-500 font-semibold text-lg">
             Loading question...
@@ -20,7 +20,7 @@
 
         <div id="quiz-content" class="hidden">
             <div class="flex items-center justify-center h-96 mb-6 rounded-lg bg-gray-200">
-                <img id="structure-image" src="" alt="Structures of the wonders" class="max-h-full max-w-full object-contain rounded-lg">
+                <img id="organ-image" src="" alt="Human Organ" class="max-h-full max-w-full object-contain rounded-lg">
             </div>
 
             <div class="space-y-4 mb-6">
@@ -88,7 +88,7 @@
                         const div = document.createElement('div');
                         div.innerHTML = `
                             <label class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors">
-                                <input type="radio" name="structue_option" value="${option}" class="form-radio h-5 w-5 text-blue-600">
+                                <input type="radio" name="organ_option" value="${option}" class="form-radio h-5 w-5 text-blue-600">
                                 <span class="text-gray-800 text-lg font-medium">${option}</span>
                             </label>
                         `;
