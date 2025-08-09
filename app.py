@@ -124,8 +124,9 @@ class HumanOrganQuiz:
         Returns:
             flask.Response: A JSON response with the quiz data or an error message.
         """
+        # Get a new question and store the correct answer in the session first.
         question_data = self._get_new_question()
-        
+
         try:
             # Clean up the old image file if it exists from the previous session
             if 'previous_image' in session and session['previous_image']:
@@ -161,8 +162,9 @@ class HumanOrganQuiz:
         except Exception as e:
             # Log any errors that occur during image generation
             print(f"Error during image generation: {e}")
+            # The correct answer is already in the session, so we can still return a valid quiz with a fallback image.
             return jsonify({
-                'error': "Failed to generate image. Trying again.",
+                'error': "Failed to generate image. Please try again.",
                 'options': question_data['options'],
                 'image_url': '/static/placeholder.jpg'
             }), 500
@@ -179,15 +181,17 @@ class HumanOrganQuiz:
         selected_option = data.get('selected_option')
         
         # Check if there is an active question
-        if 'correct_answer' not in session:
+        correct_answer = session.get('correct_answer')
+        if not correct_answer:
+            # If the correct answer is not in the session, it means the state is invalid.
             return jsonify({'error': 'No active question. Please get a new question.'}), 400
         
-        correct_answer = session.get('correct_answer')
         is_correct = (selected_option == correct_answer)
         
+        # Add a defensive check to prevent "undefined" from being returned.
         response = {
             'is_correct': is_correct,
-            'correct_answer': correct_answer
+            'correct_answer': correct_answer if correct_answer else "Error: Correct answer not found."
         }
         
         return jsonify(response)
@@ -213,6 +217,12 @@ class HumanOrganQuiz:
         self.app.run(debug=False, host='0.0.0.0', port=5000)
 
 # Entry point of the application
+# Initialize the quiz app outside the main block.
+# Use a hard-coded default value for the quiz data file.
+quiz_app = HumanOrganQuiz("QuizData_1.txt")
+app = quiz_app.app
+
+# Entry point of the application for development only
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         quiz_file = sys.argv[1]

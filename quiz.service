@@ -1,0 +1,37 @@
+###############################################################################
+# Service daemon to start the quiz application at startup
+#
+# Desc: Start the quiz application as part of the linux systemd process
+#
+# Author: Dipesh Karmakar
+# Date: 07/08/2025
+# License: MIT License
+###############################################################################
+
+# /etc/systemd/system/
+# Create a system service to run quiz application
+# sudo systemctl daemon-reload
+# sudo systemctl enable quiz.service
+# sudo systemctl start quiz.service
+# sudo systemctl status quiz.service
+# sudo systemctl restart quiz.service
+# sudo apt install net-tools
+# sudo netstat -tulnp | grep 5000
+# sudo journalctl -u quiz.service
+
+[Unit]
+Description=MyQuizApp
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Science_quiz_GenAI
+Environment="PATH=/home/ubuntu/Science_quiz_GenAI/quiz_env/bin"
+ExecStartPre=/bin/bash -c '/bin/rm -f /home/ubuntu/Science_quiz_GenAI/static/*.*'
+# ExecStart=/home/ubuntu/Science_quiz_GenAI/quiz_env/bin/python3 app.py QuizData_1.txt
+ExecStart=/home/ubuntu/Science_quiz_GenAI/quiz_env/bin/gunicorn --workers 3 --bind 0.0.0.0:5000 app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

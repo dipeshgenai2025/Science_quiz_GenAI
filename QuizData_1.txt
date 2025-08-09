@@ -39,7 +39,7 @@ Mouth
 Esophagus
 Stomach
 Small intestine
-Large intestine (colon)
+Large intestine
 Liver
 Pancreas
 Gallbladder
