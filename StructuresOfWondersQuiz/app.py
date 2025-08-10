@@ -40,8 +40,8 @@ class StructuresOfWondersQuiz:
         self.app = Flask(__name__)
         self.app.secret_key = os.urandom(24)
 
-        # Create an instance of the AWS Image Generation class
-        self.img_gen = AWSImgGen()
+        # Create an instance of the AWS Image Generation class with region name
+        self.img_gen = AWSImgGen("ap-south-1")
 
         # Load the list of structures of wonders from a file
         self.structures = self._load_quiz_data(quiz_data_file)
@@ -142,11 +142,8 @@ class StructuresOfWondersQuiz:
 
             print(f"Generated prompt: {prompt}")
 
-            native_request = self.img_gen.PromptGeneration(prompt)
-            
             # Invoke the model to generate the image
-            response = self.img_gen.InvokeModel(native_request)
-            image_path = self.img_gen.ProcessResponse(response)
+            image_path = self.img_gen.generate_image(prompt)
             
             # Generate a unique filename and move the generated image to the static directory
             filename = f"{uuid.uuid4()}.png"

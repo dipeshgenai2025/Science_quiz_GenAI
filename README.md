@@ -45,12 +45,13 @@ A GenAI-powered science quiz app that uses AI-generated images and dynamic conte
 
    All the above steps needs to be executed along with,
    ```bash
-   $ sudo apt-get install awscli (Incase awscli in not installed in the AWS EC2 instance)
-   $ aws configure
-   AWS Access Key ID [None]: XXXXXXXXXXXXXXXXXXXX
-   AWS Secret Access Key [None]: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-   Default region name [None]: us-east-1
-   Default output format [None]: json
+   sudo apt-get install awscli (Incase awscli in not installed in the AWS EC2 instance)
+   aws configure
+   
+      AWS Access Key ID [None]: XXXXXXXXXXXXXXXXXXXX
+      AWS Secret Access Key [None]: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      Default region name [None]: us-east-1
+      Default output format [None]: json
    ```
 
    - **AWS EC2 Deployment**:
@@ -64,6 +65,7 @@ A GenAI-powered science quiz app that uses AI-generated images and dynamic conte
    
    Start the Flask server with '&'
    ```bash
+   sudo apt-get install gunicorn (Incase gunicorn in not installed in the AWS EC2 instance)
    Python3 app.py QuizData_1.txt &
    ```
    Ending the command with '&' will keep the server running even with ssh terminal gets closed
