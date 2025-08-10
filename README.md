@@ -25,9 +25,11 @@ A GenAI-powered science quiz app that uses AI-generated images and dynamic conte
    git clone https://github.com/dipeshgenai2025/Science_quiz_GenAI.git
    ```
 
-4. **Install Dependencies**  
+4. **Install Dependencies (Also added pip installation, incase not willing to install Python venv)**  
    ```bash
    cd Science_quiz_GenAI
+   sudo apt update
+   sudo apt-get install pip -y
    pip install -r requirements.txt
    ```
 
@@ -43,6 +45,7 @@ A GenAI-powered science quiz app that uses AI-generated images and dynamic conte
 
    All the above steps needs to be executed along with,
    ```bash
+   $ sudo apt-get install awscli (Incase awscli in not installed in the AWS EC2 instance)
    $ aws configure
    AWS Access Key ID [None]: XXXXXXXXXXXXXXXXXXXX
    AWS Secret Access Key [None]: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
