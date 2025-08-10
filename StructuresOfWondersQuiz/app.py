@@ -142,10 +142,10 @@ class StructuresOfWondersQuiz:
 
             print(f"Generated prompt: {prompt}")
 
-            self.img_gen.PromptGeneration(prompt)
+            native_request = self.img_gen.PromptGeneration(prompt)
             
             # Invoke the model to generate the image
-            response = self.img_gen.InvokeModel()
+            response = self.img_gen.InvokeModel(native_request)
             image_path = self.img_gen.ProcessResponse(response)
             
             # Generate a unique filename and move the generated image to the static directory
